@@ -77,5 +77,5 @@ TRACE_EVENT(
 
 /* This part must be outside protection */
 #undef TRACE_INCLUDE_PATH
-#define TRACE_INCLUDE_PATH .
+#define TRACE_INCLUDE_PATH /home/daniel/android/A001D/kernel/asus/A001D/drivers/net/ethernet/msm
 #include <trace/define_trace.h>

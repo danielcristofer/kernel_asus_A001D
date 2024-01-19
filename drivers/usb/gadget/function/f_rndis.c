@@ -27,7 +27,7 @@
 #include "u_ether_configfs.h"
 #include "u_rndis.h"
 #include "rndis.h"
-#include "configfs.h"
+#include </home/daniel/android/A001D/kernel/asus/A001D/drivers/usb/gadget/configfs.h>
 
 /*
  * This function is an RNDIS Ethernet port -- a Microsoft protocol that's

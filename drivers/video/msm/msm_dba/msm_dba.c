@@ -22,7 +22,7 @@
 #include <linux/err.h>
 
 #include <video/msm_dba.h>
-#include <msm_dba_internal.h>
+#include </home/daniel/android/A001D/kernel/asus/A001D/drivers/video/msm/msm_dba/msm_dba_internal.h>
 
 static DEFINE_MUTEX(register_mutex);
 

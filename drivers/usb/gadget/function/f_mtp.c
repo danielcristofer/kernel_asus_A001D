@@ -40,7 +40,7 @@
 #include <linux/configfs.h>
 #include <linux/usb/composite.h>
 
-#include "configfs.h"
+#include </home/daniel/android/A001D/kernel/asus/A001D/drivers/usb/gadget/configfs.h>
 
 #define MTP_RX_BUFFER_INIT_SIZE    1048576
 #define MTP_BULK_BUFFER_SIZE       16384
