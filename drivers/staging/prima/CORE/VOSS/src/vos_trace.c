@@ -281,6 +281,7 @@ void vos_trace_msg( VOS_MODULE_ID module, VOS_TRACE_LEVEL level, char *strFormat
 
 #ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
          wlan_log_to_user(level, (char *)strBuffer, strlen(strBuffer));
+         pr_err("%s\n", strBuffer);
 #else
          pr_err("%s\n", strBuffer);
 #endif

@@ -74,10 +74,10 @@
 #define GF_INPUT_FF_KEY  KEY_POWER
 #define GF_INPUT_CAMERA_KEY  KEY_CAMERA
 #define GF_INPUT_OTHER_KEY KEY_VOLUMEDOWN  /* temporary key value for capture use */
-#define GF_NAV_UP_KEY  KEY_GESTURE_NAV_UP
-#define GF_NAV_DOWN_KEY  KEY_GESTURE_NAV_DOWN
-#define GF_NAV_LEFT_KEY  KEY_GESTURE_NAV_LEFT
-#define GF_NAV_RIGHT_KEY  KEY_GESTURE_NAV_RIGHT
+#define GF_NAV_UP_KEY    KEY_UP
+#define GF_NAV_DOWN_KEY  KEY_DOWN
+#define GF_NAV_LEFT_KEY  KEY_LEFT
+#define GF_NAV_RIGHT_KEY KEY_RIGHT
 
 #define GF_CLICK_KEY  114
 #define GF_DOUBLE_CLICK_KEY  115
@@ -551,7 +551,7 @@ gf_compat_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 
 static void notification_work(struct work_struct *work)
 {
-	mdss_prim_panel_fb_unblank(FP_UNLOCK_REJECTION_TIMEOUT);
+// 	mdss_prim_panel_fb_unblank(FP_UNLOCK_REJECTION_TIMEOUT);
 	pr_debug("unblank\n");
 }
 

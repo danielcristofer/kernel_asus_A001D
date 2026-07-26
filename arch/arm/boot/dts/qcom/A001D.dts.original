@@ -7713,14 +7713,9 @@
 			pinctrl-1 = <0x102>;
 			pinctrl-2 = <0x103>;
 			gpios = <0xbe 0x4c 0x00 0xbe 0x4d 0x00 0xbe 0x4e 0x00 0xbe 0x4f 0x00 0xbe 0x50 0x00>;
-			clocks = <0x37 0xd3949ebc>,
-                                 <0x37 0x116b76f>,
-                                 <0x37 0x24a30992>,
-                                 <0x104 0x8121ac15>,
-                                 <0x37 0x709f430b>;
-                        clock-names = "snoc_wcnss", "xo", "rf_clk", "measure", "wcnss_debug";
-			qcom,snoc-wcnss-clock-freq = <19200000>;
-                        qcom,has-autodetect-xo;
+			clocks = <0x37 0x116b76f 0x37 0x24a30992 0x104 0x8121ac15 0x37 0x709f430b>;
+			clock-names = "xo\0rf_clk\0measure\0wcnss_debug";
+			qcom,has-autodetect-xo;
 			qcom,is-pronto-v3;
 			qcom,has-pronto-hw;
 			qcom,has-vsys-adc-channel;

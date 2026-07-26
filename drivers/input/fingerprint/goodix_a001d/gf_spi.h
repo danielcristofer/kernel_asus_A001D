@@ -106,12 +106,11 @@ struct gf_ioc_chip_info {
 #define GF_NET_EVENT_FB_UNBLACK 3
 #define NETLINK_TEST 25
 
-
 static const char * const pctl_names[] = {
-
-	"goodixfp_reset_reset",
-	"goodixfp_reset_active",
-	"goodixfp_irq_active",
+	"goodix_reset_active",
+	"goodix_reset_sleep",
+	"goodix_irq_active",
+	"goodix_irq_sleep",
 };
 
 struct gf_dev {
