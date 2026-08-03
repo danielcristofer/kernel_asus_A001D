@@ -331,6 +331,23 @@ void led_trigger_register_simple(const char *name, struct led_trigger **tp)
 }
 EXPORT_SYMBOL_GPL(led_trigger_register_simple);
 
+
+struct led_trigger *led_trigger_find(const char *name)
+{
+	struct led_trigger *trig;
+
+	down_read(&triggers_list_lock);
+	list_for_each_entry(trig, &trigger_list, next_trig) {
+		if (!strcmp(trig->name, name)) {
+			up_read(&triggers_list_lock);
+			return trig;
+		}
+	}
+	up_read(&triggers_list_lock);
+	return NULL;
+}
+EXPORT_SYMBOL_GPL(led_trigger_find);
+
 void led_trigger_unregister_simple(struct led_trigger *trig)
 {
 	if (trig)

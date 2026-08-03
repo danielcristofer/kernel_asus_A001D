@@ -216,6 +216,8 @@ extern void led_trigger_unregister(struct led_trigger *trigger);
 extern void led_trigger_register_simple(const char *name,
 				struct led_trigger **trigger);
 extern void led_trigger_unregister_simple(struct led_trigger *trigger);
+
+extern struct led_trigger *led_trigger_find(const char *name);
 extern void led_trigger_event(struct led_trigger *trigger,
 				enum led_brightness event);
 extern void led_trigger_blink(struct led_trigger *trigger,

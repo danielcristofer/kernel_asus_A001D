@@ -10471,7 +10471,7 @@
 				qcom,gpio-req-tbl-label = "CAMIF_MCLK0\0CAM_RESET0\0CAM_CUSTOM_1\0CAM_CUSTOM_2\0CAM_VANA\0CAM_STBY";
 				qcom,sensor-mode = <0x00>;
 				qcom,cci-master = <0x00>;
-				status = "ok";
+				status = "disabled";
 				clocks = <0x37 0x266b3853 0x37 0x80902deb>;
 				clock-names = "cam_src_clk\0cam_clk";
 				qcom,clock-rates = <0x16e3600 0x00>;
@@ -11904,18 +11904,19 @@
 			pinctrl-3 = <0x1b5 0x1b5>;
 		};
 
-		betterlife_fp {
-			compatible = "betterlife,fingerprint";
-			spi-max-frequency = <0x493e00>;
-			interrupt-parent = <0xbe>;
-			interrupts = <0x30 0x00>;
-			fpreset-gpio = <0xbe 0x8c 0x00>;
-			fpint-gpio = <0xbe 0x30 0x00>;
-			fppower-gpio = <0xbe 0x09 0x00>;
-			status = "ok";
-		};
+        betterlife_fp {
+            compatible = "betterlife,fingerprint";
+            spi-max-frequency = <0x493e00>;
+            interrupt-parent = <0xbe>;
+            interrupts = <0x30 0x0>;
+            betterlife,gpio_reset = <0xbe 0x8c 0x0>;
+            betterlife,gpio_irq = <0xbe 0x30 0x0>;
+            betterlife,gpio_pwr = <0xbe 0x9 0x0>;
+            status = "ok";
+        };
 
-		qcom,camera-flash0 {
+
+	    qcom,camera-flash0 {
 			cell-index = <0x00>;
 			compatible = "qcom,camera-flash";
 			qcom,flash-type = <0x01>;

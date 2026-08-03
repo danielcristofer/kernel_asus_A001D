@@ -46,6 +46,8 @@ static struct msm_flash_table msm_i2c_flash_table;
 static struct msm_flash_table msm_gpio_flash_table;
 static struct msm_flash_table msm_pmic_flash_table;
 
+
+extern struct led_trigger *led_trigger_find(const char *name);
 static struct msm_flash_table *flash_table[] = {
 	&msm_i2c_flash_table,
 	&msm_gpio_flash_table,
@@ -104,7 +106,7 @@ static struct led_classdev msm_torch_led[MAX_LED_TRIGGERS] = {
 };
 
 static int32_t msm_torch_create_classdev(struct platform_device *pdev,
-				void *data)
+				void *data, int32_t led_offset)
 {
 	int32_t rc = 0;
 	int32_t i = 0;
@@ -117,18 +119,25 @@ static int32_t msm_torch_create_classdev(struct platform_device *pdev,
 	}
 
 	for (i = 0; i < fctrl->torch_num_sources; i++) {
+		int32_t led_idx = led_offset + i;
+		if (led_idx >= MAX_LED_TRIGGERS) {
+			pr_err("LED index %d out of bounds (max %d)\n",
+				led_idx, MAX_LED_TRIGGERS - 1);
+			return -EINVAL;
+		}
+
 		if (fctrl->torch_trigger[i]) {
 			torch_trigger = fctrl->torch_trigger[i];
 			CDBG("%s:%d msm_torch_brightness_set for torch %d",
 				__func__, __LINE__, i);
-			msm_torch_brightness_set(&msm_torch_led[i],
+			msm_torch_brightness_set(&msm_torch_led[led_idx],
 				LED_OFF);
 
 			rc = led_classdev_register(&pdev->dev,
-				&msm_torch_led[i]);
+				&msm_torch_led[led_idx]);
 			if (rc) {
-				pr_err("Failed to register %d led dev. rc = %d\n",
-						i, rc);
+				pr_err("Failed to register led dev %d (idx=%d). rc = %d\n",
+						i, led_idx, rc);
 				return rc;
 			}
 		} else {
@@ -136,7 +145,6 @@ static int32_t msm_torch_create_classdev(struct platform_device *pdev,
 			return -EINVAL;
 		}
 	}
-
 	return 0;
 };
 
@@ -828,6 +836,10 @@ static int32_t msm_flash_get_pmic_source_info(
 			led_trigger_register_simple(
 				fctrl->switch_trigger_name,
 				&fctrl->switch_trigger);
+			if (!fctrl->switch_trigger) {
+				fctrl->switch_trigger =
+					led_trigger_find(fctrl->switch_trigger_name);
+			}
 		}
 	}
 
@@ -904,6 +916,10 @@ static int32_t msm_flash_get_pmic_source_info(
 			led_trigger_register_simple(
 				fctrl->flash_trigger_name[i],
 				&fctrl->flash_trigger[i]);
+			if (!fctrl->flash_trigger[i]) {
+				fctrl->flash_trigger[i] =
+					led_trigger_find(fctrl->flash_trigger_name[i]);
+			}
 		}
 		if (fctrl->flash_driver_type == FLASH_DRIVER_DEFAULT)
 			fctrl->flash_driver_type = FLASH_DRIVER_PMIC;
@@ -974,6 +990,10 @@ static int32_t msm_flash_get_pmic_source_info(
 			led_trigger_register_simple(
 				fctrl->torch_trigger_name[i],
 				&fctrl->torch_trigger[i]);
+			if (!fctrl->torch_trigger[i]) {
+				fctrl->torch_trigger[i] =
+					led_trigger_find(fctrl->torch_trigger_name[i]);
+			}
 		}
 		if (fctrl->flash_driver_type == FLASH_DRIVER_DEFAULT)
 			fctrl->flash_driver_type = FLASH_DRIVER_PMIC;
@@ -1271,9 +1291,11 @@ static int32_t msm_flash_platform_probe(struct platform_device *pdev)
 #endif
 	flash_ctrl->msm_sd.sd.devnode->fops = &msm_flash_v4l2_subdev_fops;
 
-	if (flash_ctrl->flash_driver_type == FLASH_DRIVER_PMIC)
-		rc = msm_torch_create_classdev(pdev, flash_ctrl);
-
+    if (flash_ctrl->flash_driver_type == FLASH_DRIVER_PMIC) {
+		u32 cell_index = 0;
+		of_property_read_u32(pdev->dev.of_node, "cell-index", &cell_index);
+		rc = msm_torch_create_classdev(pdev, flash_ctrl, (int32_t)cell_index);
+	}
 	CDBG("probe success\n");
 	return rc;
 }
