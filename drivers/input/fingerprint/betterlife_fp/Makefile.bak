@@ -1,0 +1,1 @@
+obj-y += bf_fp_spi.o bf_fp_platform.o

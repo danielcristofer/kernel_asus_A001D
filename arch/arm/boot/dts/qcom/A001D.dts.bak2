@@ -2458,6 +2458,69 @@
 				};
 			};
 
+			goodix_reset_active {
+				linux,phandle = <0x1b2>;
+				phandle = <0x1b2>;
+
+				mux {
+					pins = "gpio140";
+					function = "gpio";
+				};
+
+				config {
+					pins = "gpio140";
+					drive-strength = <0x06>;
+					bias-pull-up;
+				};
+			};
+
+			goodix_reset_sleep {
+				linux,phandle = <0x1b3>;
+				phandle = <0x1b3>;
+
+				mux {
+					pins = "gpio140";
+					function = "gpio";
+				};
+
+				config {
+					pins = "gpio140";
+					drive-strength = <0x06>;
+					bias-pull-up;
+				};
+			};
+
+			goodix_irq_active {
+				linux,phandle = <0x1b4>;
+				phandle = <0x1b4>;
+
+				mux {
+					pins = "gpio48";
+					function = "gpio";
+				};
+
+				config {
+					pins = "gpio48";
+					drive-strength = <0x06>;
+					bias-disable;
+				};
+			};
+
+			goodix_irq_sleep {
+				linux,phandle = <0x1b5>;
+				phandle = <0x1b5>;
+
+				mux {
+					pins = "gpio48";
+					function = "gpio";
+				};
+
+				config {
+					pins = "gpio48";
+					drive-strength = <0x06>;
+					bias-disable;
+				};
+			};
 		};
 
 		clock-controller@b111000 {
@@ -11834,6 +11897,11 @@
 			goodix,gpio_reset = <0xbe 0x8c 0x00>;
 			goodix,gpio_irq = <0xbe 0x30 0x00>;
 			goodix,gpio_pwr = <0xbe 0x09 0x00>;
+			pinctrl-names = "goodix_reset_active\0goodix_reset_sleep\0goodix_irq_active\0goodix_irq_sleep";
+			pinctrl-0 = <0x1b2 0x1b2>;
+			pinctrl-1 = <0x1b3 0x1b3>;
+			pinctrl-2 = <0x1b4 0x1b4>;
+			pinctrl-3 = <0x1b5 0x1b5>;
 		};
 
 		betterlife_fp {
@@ -11844,6 +11912,11 @@
 		    betterlife,gpio_reset = <0xbe 0x8c 0x00>;
 		    betterlife,gpio_irq = <0xbe 0x30 0x00>;
 		    betterlife,gpio_pwr = <0xbe 0x09 0x00>;
+		    pinctrl-names = "betterlife_reset_active\0betterlife_reset_sleep\0betterlife_irq_active\0betterlife_irq_sleep";
+		    pinctrl-0 = <0x1b2 0x1b2>;
+		    pinctrl-1 = <0x1b3 0x1b3>;
+		    pinctrl-2 = <0x1b4 0x1b4>;
+		    pinctrl-3 = <0x1b5 0x1b5>;
 		    status = "okay";
 		};
 

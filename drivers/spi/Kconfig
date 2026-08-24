@@ -414,7 +414,7 @@ config SPI_RSPI
 config SPI_QSD
 	tristate "Qualcomm MSM SPI support"
 	default n
-	depends on ARCH_MSM_SCORPION && !MSM_SMP
+	depends on ARCH_MSM_SCORPION || ARCH_MSM
 	help
 	  Support for Serial Peripheral Interface for Qualcomm MSM
 

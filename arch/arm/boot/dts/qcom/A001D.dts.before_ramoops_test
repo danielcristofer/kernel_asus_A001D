@@ -12135,3 +12135,16 @@
 		};
 	};
 };
+
+/ {
+    reserved-memory {
+        ramoops@ff000000 {
+            compatible = "ramoops";
+            reg = <0x0 0xff000000 0x0 0x100000>;
+            record-size = <0x20000>;
+            console-size = <0x20000>;
+            ftrace-size = <0x0>;
+            pmsg-size = <0x20000>;
+        };
+    };
+};

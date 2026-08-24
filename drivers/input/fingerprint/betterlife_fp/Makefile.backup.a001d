@@ -1,0 +1,7 @@
+# kernel/asus/A001D/drivers/input/fingerprint/betterlife_fp/Makefile
+ccflags-y += -DPLATFORM_QCOM -DBF_REE
+# Se usar modo REE (processamento no kernel ao invés de TZ):
+# ccflags-y += -DBF_REE
+
+obj-y += bf_fp_spi.o bf_fp_platform.o
+
